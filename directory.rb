@@ -37,6 +37,14 @@ def print_by_name(names, letter)
   end
 end
 
+def print_short_name(names)
+  puts "Names with 12 characters or less:"
+  names.each do |student|
+    puts student[:name] if student[:name].length < 12
+    end
+end
+  
+
 # finally, we print the total number of students
 def print_footer(names)
   print "Overall, we have #{names.count} great students"
@@ -49,3 +57,4 @@ print_students(students)
 print_footer(students)
 input_students
 print_by_name(students, 'S')
+print_short_name(students)
