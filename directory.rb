@@ -29,6 +29,14 @@ def print_students(names)
   end
 end
 
+def print_by_name(names, letter)
+  names.each do |student|
+    if student[:name].chr.upcase == letter.upcase
+      puts "#{student[:name]}"
+    end
+  end
+end
+
 # finally, we print the total number of students
 def print_footer(names)
   print "Overall, we have #{names.count} great students"
@@ -40,3 +48,4 @@ print_header
 print_students(students)
 print_footer(students)
 input_students
+print_by_name(students, 'S')
