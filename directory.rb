@@ -24,8 +24,11 @@ def print_header
 end
 # and then print them
 def print_students(names)
-  names.each_with_index do |name, index|
-  puts "#{index + 1} #{name[:name]} (#{name[:cohort]} cohort)"
+  index = 1
+  until index > names.size do
+    current = names[index - 1]
+    puts "#{index}. #{current[:name]} (#{current[:cohort]} cohort)" 
+    index += 1
   end
 end
 
