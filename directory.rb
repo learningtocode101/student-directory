@@ -1,10 +1,8 @@
 #first we get the list of students
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  #create and empty array
   students = []
   #get the first name
+  puts "Please enter name of the student"
   name = gets.chomp
   puts "Please enter the cohort of the student"
   cohort = gets.chomp
@@ -14,7 +12,7 @@ def input_students
     students << {name: name, cohort: cohort, country_of_birth: :england}
     puts "Now we have #{students.count} students"
     #get another name from the user
-    puts "Please enter the names of the students"
+    puts "Please enter the names of the student"
     name = gets.chomp
     puts "Please enter the cohort of the student"
     cohort = gets.chomp
@@ -24,15 +22,15 @@ def input_students
 end
 # then print a header
 def print_header
-  puts "The students of Villians Academy"
-  puts "------------"
+  puts "The students of Villians Academy".center(100)
+  puts "------------".center(100)
 end
 # and then print them
 def print_students(names)
   index = 1
   until index > names.size do
     current = names[index - 1]
-    puts "#{index}. #{current[:name]} from #{current[:country_of_birth]} (#{current[:cohort]} cohort)" 
+    puts "#{index}. #{current[:name]} from #{current[:country_of_birth]} (#{current[:cohort]} cohort)".center(100) 
     index += 1
   end
 end
