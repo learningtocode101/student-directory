@@ -6,13 +6,18 @@ def input_students
   students = []
   #get the first name
   name = gets.chomp
+  puts "Please enter the cohort of the student"
+  cohort = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: cohort, country_of_birth: :england}
     puts "Now we have #{students.count} students"
     #get another name from the user
+    puts "Please enter the names of the students"
     name = gets.chomp
+    puts "Please enter the cohort of the student"
+    cohort = gets.chomp
   end
   #return the array of students
   students
@@ -27,7 +32,7 @@ def print_students(names)
   index = 1
   until index > names.size do
     current = names[index - 1]
-    puts "#{index}. #{current[:name]} (#{current[:cohort]} cohort)" 
+    puts "#{index}. #{current[:name]} from #{current[:country_of_birth]} (#{current[:cohort]} cohort)" 
     index += 1
   end
 end
