@@ -8,7 +8,7 @@ def input_students
   puts "Press enter twice to exit"
   @name = STDIN.gets.chomp
   puts "Please enter the cohort of the student"
-  cohort = STDIN.gets.chomp
+  @cohort = STDIN.gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
@@ -101,7 +101,7 @@ def save_students()
 end
 
 def ask_for_file
-  puts "Enter file name"
+  puts "Enter file name with"
   gets.chomp
 end
 
@@ -114,6 +114,7 @@ def load_students(filename = ask_for_file)
     @name, @cohort = line[0], line[1]
       add_students
   end 
+  puts "#{filename} loaded"
 end
 
 def try_load_students
