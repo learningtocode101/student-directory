@@ -11,7 +11,7 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-    @students << {name: name, cohort: cohort, country_of_birth: :england}
+    @students << {name: name, cohort: cohort, country_of_birth: :England}
     if @students.count  > 1
       puts "Now we have #{@students.count} students"
     else
@@ -36,7 +36,7 @@ def print_students()
   index = 1
   until index > @students.size do
     current = @students[index - 1]
-    puts "#{index}. #{current[:name]} from #{current[:country_of_birth]} (#{current[:cohort]} cohort)".center(100) 
+    puts "#{index}. #{current[:name]}, #{current[:country_of_birth]} (#{current[:cohort]} cohort)".center(100) 
     index += 1
   end
 end
@@ -47,14 +47,9 @@ def print_footer()
 end
 
 def interactive_menu
-  #students = []
   loop do
-    # 1. print the menu and ask the user what to do
     print_menu()
-    # 2. read the input and save it into a variable
     selection(gets.chomp)
-    # 3. do what the user has asked
-    
   end
 end
 
@@ -64,6 +59,8 @@ def selection(option)
         input_students
       when "2"
         show_students
+      when "3"
+        save_students()
       when "9"
         exit
       else
@@ -74,6 +71,7 @@ end
 def print_menu()
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -81,6 +79,19 @@ def show_students
   print_header
   print_students()
   print_footer()
+end
+
+def save_students()
+  #index = 1
+  file = File.open("students.csv", "w")
+  @students.each do |student|
+    #current = @students[index - 1]
+    student_data = [student[:name], student[:country_of_birth], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  puts "List saved to students.csv"
+  file.close
 end
 
 #call methods created above
