@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 #first we get the list of students
 @students = []
 def input_students
@@ -6,7 +6,7 @@ def input_students
   #get the first name
   puts "Please enter name of the student"
   puts "Press enter twice to exit"
-  name = STDIN.gets.chomp
+  @name = STDIN.gets.chomp
   puts "Please enter the cohort of the student"
   cohort = STDIN.gets.chomp
   #while the name is not empty, repeat this code
@@ -20,23 +20,23 @@ def input_students
     end
     #get another name from the user
     puts "Please enter the names of the student"
-    name = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
     puts "Please enter the cohort of the student"
-    cohort = STDIN.gets.chomp
+    @cohort = STDIN.gets.chomp
   end
   
 end
 # then print a header
 def print_header
-  puts "The students of Villians Academy".center(100)
-  puts "------------".center(100)
+  puts "The students of Villians Academy".center(50)
+  puts "------------".center(50)
 end
 # and then print them
 def print_students_list()
   index = 1
   until index > @students.size do
     current = @students[index - 1]
-    puts "#{index}. #{current[:name]}, #{current[:country_of_birth]} (#{current[:cohort]} cohort)".center(100) 
+    puts "#{index}. #{current[:name]}, #{current[:country_of_birth]} (#{current[:cohort]} cohort)".center(50) 
     index += 1
   end
 end
@@ -61,9 +61,12 @@ def selection(option)
         show_students
       when "3"
         save_students()
+        puts "File saved"
       when "4"
         load_students()
+        try_load_students
       when "9"
+        puts "Exiting..."
         exit
       else
         puts "I don't know what you meant, try again"
@@ -97,14 +100,20 @@ def save_students()
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  puts "Student list loaded from students.csv"
-  file.close  
+def ask_for_file
+  puts "Enter file name"
+  gets.chomp
+end
+
+def add_students
+  @students << {name: @name, cohort: @cohort.to_sym}
+end
+
+def load_students(filename = ask_for_file)
+  CSV.foreach(filename) do |line|
+    @name, @cohort = line[0], line[1]
+      add_students
+  end 
 end
 
 def try_load_students
