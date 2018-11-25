@@ -3,6 +3,7 @@ def input_students
   students = []
   #get the first name
   puts "Please enter name of the student"
+  puts "Press enter twice to exit"
   name = gets.chomp
   puts "Please enter the cohort of the student"
   cohort = gets.chomp
@@ -10,7 +11,11 @@ def input_students
   while !name.empty? do
     #add the student hash to the array
     students << {name: name, cohort: cohort, country_of_birth: :england}
-    puts "Now we have #{students.count} students"
+    if students.count  > 1
+      puts "Now we have #{students.count} students"
+    else
+      puts "Now we have #{students.count} student"
+    end
     #get another name from the user
     puts "Please enter the names of the student"
     name = gets.chomp
@@ -53,7 +58,7 @@ end
 
 # finally, we print the total number of students
 def print_footer(names)
-  print "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students"
 end
 
 students = input_students
