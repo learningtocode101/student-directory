@@ -1,3 +1,4 @@
+require 'CSV'
 #first we get the list of students
 @students = []
 def input_students
@@ -5,9 +6,9 @@ def input_students
   #get the first name
   puts "Please enter name of the student"
   puts "Press enter twice to exit"
-  name = gets.chomp
+  name = STDIN.gets.chomp
   puts "Please enter the cohort of the student"
-  cohort = gets.chomp
+  cohort = STDIN.gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
@@ -19,12 +20,11 @@ def input_students
     end
     #get another name from the user
     puts "Please enter the names of the student"
-    name = gets.chomp
+    name = STDIN.gets.chomp
     puts "Please enter the cohort of the student"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
   end
-  #return the array of students
-  #students
+  
 end
 # then print a header
 def print_header
@@ -32,7 +32,7 @@ def print_header
   puts "------------".center(100)
 end
 # and then print them
-def print_students()
+def print_students_list()
   index = 1
   until index > @students.size do
     current = @students[index - 1]
@@ -49,7 +49,7 @@ end
 def interactive_menu
   loop do
     print_menu()
-    selection(gets.chomp)
+    selection(STDIN.gets.chomp)
   end
 end
 
@@ -80,7 +80,7 @@ end
 
 def show_students
   print_header
-  print_students()
+  print_students_list()
   print_footer()
 end
 
@@ -93,11 +93,11 @@ def save_students()
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  puts "List saved to students.csv"
+  puts "Input saved to students.csv"
   file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
@@ -107,6 +107,20 @@ def load_students
   file.close  
 end
 
-#call methods created above
-interactive_menu()
+def try_load_students
+  filename = ARGV.first 
+  return if filename.nil?
+  if File.exists?(filename) 
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else 
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+	
+
+#call method 
+try_load_students
+interactive_menu
 
